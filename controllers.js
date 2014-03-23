@@ -1,9 +1,5 @@
 var buaychiaApp = angular.module('buaychiaApp', []);
-var cache = {
-    'months': null,
-    'buyDate': null,
-    'regDate': null
-};
+var cache = [];
 
 buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
     $scope.stats = [
@@ -65,31 +61,51 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
     // http://www.lta.gov.sg/content/ltaweb/en/roads-and-motoring/owning-a-vehicle/costs-of-owning-a-vehicle/tax-structure-for-cars.html
 
     $scope.arf = function() {
+        if (cache.omv === $scope.data.omv) {
+            return cache.arf;
+        }
+
         var omv = parseFloat($scope.data.omv);
+        var arf = 0;
 
         if (omv <= 20000) {
-            return omv;
+            arf = omv;
         } else if (omv <= 50000) {
-            return (omv - 20000) * 1.4 + 20000;
+            arf = (omv - 20000) * 1.4 + 20000;
         } else {
-            return (omv - 50000) * 1.8 + 62000;
+            arf = (omv - 50000) * 1.8 + 62000;
         }
+
+        cache.omv = $scope.data.omv;
+        cache.arf = arf;
+
+        return arf;
     };
 
     $scope.roadTax = function() {
+        if (cache.engine === $scope.data.engine) {
+            return cache.roadTax;
+        }
+
         var engine = parseFloat($scope.data.engine);
+        var roadTax = 0;
 
         if (engine <= 600) {
-            return Math.ceil(200 * 0.782) * 2;
+            roadTax = Math.ceil(200 * 0.782) * 2;
         } else if (engine <= 1000) {
-            return Math.ceil((200 + 0.125 * (engine - 600)) * 0.782) * 2;
+            roadTax = Math.ceil((200 + 0.125 * (engine - 600)) * 0.782) * 2;
         } else if (engine <= 1600) {
-            return Math.ceil((250 + 0.375 * (engine - 1000)) * 0.782) * 2;
+            roadTax = Math.ceil((250 + 0.375 * (engine - 1000)) * 0.782) * 2;
         } else if (engine <= 3000) {
-            return Math.ceil((475 + 0.75 * (engine - 1600)) * 0.782) * 2;
+            roadTax = Math.ceil((475 + 0.75 * (engine - 1600)) * 0.782) * 2;
         } else {
-            return Math.ceil((1525 + 1 * (engine - 3000)) * 0.782) * 2;
+            roadTax = Math.ceil((1525 + 1 * (engine - 3000)) * 0.782) * 2;
         }
+
+        cache.engine = $scope.data.engine;
+        cache.roadTax = roadTax;
+
+        return roadTax;
     }
 
     $scope.months = function() {
@@ -103,6 +119,7 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
         if (buyDate.getTime() < regDate.getTime()) {
             $scope.data.regDate = $scope.data.buyDate;
             alert('Cheng hu says you cannot buy a chia before registering it.');
+            return;
         }
 
         var monthsBeforeTenYrs = ((regDate.getYear()) + 10 - (buyDate.getYear())) * 12 + (regDate.getMonth()) - (buyDate.getMonth());
