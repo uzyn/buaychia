@@ -3,7 +3,11 @@ var buaychiaApp = angular.module('buaychiaApp', []).filter('monthInYM', function
         return Math.floor(input/12) + 'y ' + input%12 + 'm';
     }
 });
-var cache = [];
+var cache = {
+    arf: [],
+    roadTax: [],
+    months: []
+};
 
 buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
     $scope.stats = [
@@ -68,8 +72,8 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
     // http://www.lta.gov.sg/content/ltaweb/en/roads-and-motoring/owning-a-vehicle/costs-of-owning-a-vehicle/tax-structure-for-cars.html
 
     $scope.arf = function() {
-        if (cache.omv === $scope.data.omv) {
-            return cache.arf;
+        if (cache.arf.omv === $scope.data.omv) {
+            return cache.arf.results;
         }
 
         var omv = parseFloat($scope.data.omv);
@@ -83,15 +87,17 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
             arf = (omv - 50000) * 1.8 + 62000;
         }
 
-        cache.omv = $scope.data.omv;
-        cache.arf = arf;
+        cache.arf = {
+            omv: $scope.data.omv,
+            results: arf
+        };
 
         return arf;
     };
 
     $scope.roadTax = function() {
-        if (cache.engine === $scope.data.engine) {
-            return cache.roadTax;
+        if (cache.roadTax.engine === $scope.data.engine) {
+            return cache.roadTax.results;
         }
 
         var engine = parseFloat($scope.data.engine);
@@ -109,20 +115,22 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
             roadTax = Math.ceil((1525 + 1 * (engine - 3000)) * 0.782) * 2;
         }
 
-        cache.engine = $scope.data.engine;
-        cache.roadTax = roadTax;
+        cache.roadTax = {
+            engine: $scope.data.engine,
+            results: roadTax
+        }
 
         return roadTax;
     }
 
     $scope.months = function() {
-        if (cache.buyDate === $scope.data.buyDate &&
-            cache.regDate === $scope.data.regDate &&
-            cache.engine === $scope.data.engine &&
-            cache.coe === $scope.data.coe &&
-            cache.omv === $scope.data.omv
+        if (cache.months.buyDate === $scope.data.buyDate &&
+            cache.months.regDate === $scope.data.regDate &&
+            cache.months.engine === $scope.data.engine &&
+            cache.months.coe === $scope.data.coe &&
+            cache.months.omv === $scope.data.omv
         ) {
-            return cache.months;
+            return cache.months.results;
         }
 
         var buyDate = new Date($scope.data.buyDate);
@@ -184,13 +192,15 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
 
         months.reverse();
 
-        cache.months = months;
-        cache.buyDate = $scope.data.buyDate;
-        cache.regDate = $scope.data.regDate;
-        cache.engine = $scope.data.engine;
-        cache.coe = $scope.data.coe;
-        cache.omv = $scope.data.omv;
-        cache.monthsBeforeTenYrs = monthsBeforeTenYrs;
+        cache.months = {
+            buyDate: $scope.data.buyDate,
+            regDate: $scope.data.regDate,
+            engine: $scope.data.engine,
+            coe: $scope.data.coe,
+            omv: $scope.data.omv,
+            monthsBeforeTenYrs: monthsBeforeTenYrs,
+            results: months
+        }
 
         return months;
     }
