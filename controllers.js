@@ -1,6 +1,6 @@
 var buaychiaApp = angular.module('buaychiaApp', []);
 
-buaychiaApp.controller('ChiaCtrl', function ($scope) {
+buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
     $scope.stats = [
         {
             'model': 'price',
@@ -36,10 +36,29 @@ buaychiaApp.controller('ChiaCtrl', function ($scope) {
             'pre': '$',
             'type': 'number',
             'post': null
+        },
+        {
+            'model': 'buyDate',
+            'label': 'Date of purchase',
+            'pre': null,
+            'type': 'month',
+            'post': null
         }
     ];
 
-    $scope.data = [];
+    // Default values
+    $scope.data = {
+        'price': Math.ceil(Math.random() * 50000) + 20000,
+        'engine': Math.ceil(Math.random() * 2000) + 1300,
+        'regDate': $filter('date')(Date.now() - Math.ceil(Math.random() * 70000000 * 1000), 'yyyy-MM'),
+        'coe': Math.ceil(Math.random() * 50000) + 20000,
+        'omv': Math.ceil(Math.random() * 50000) + 5000,
+        'buyDate': $filter('date')(Date.now(), 'yyyy-MM')
+    };
+
+    // Deafult values
+    //$scope.data.buyDate = $filter('date')(Date.now(), 'yyyy-MM');
+
 
     // Based on
     // http://www.lta.gov.sg/content/ltaweb/en/roads-and-motoring/owning-a-vehicle/costs-of-owning-a-vehicle/tax-structure-for-cars.html
