@@ -33,7 +33,7 @@
         <h2>Enter stats</h2>
         <p>Need actual numbers? Go to sgcarmart.com</p>
 
-        <table>
+        <table class="table table-stats table-condensed table-hover">
             <tr ng-repeat="stat in stats">
                 <th>{{stat.label}}</th>
                 <td>{{stat.pre}} <input type="{{stat.type}}" ng-model="data[stat.model]"> {{stat.post}}</td>

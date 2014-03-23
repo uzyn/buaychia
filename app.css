@@ -1,3 +1,7 @@
+.table-stats tr>th,
+.table-stats tr>td {
+    border: none !important;
+}
 .table-monthly {
     font-size: 0.9em;
 }
