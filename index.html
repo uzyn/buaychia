@@ -41,7 +41,7 @@
         </tr>
         <tr>
             <th>Age at purchase</td>
-            <td>{{monthsBeforeTenYrs()}} months</td>
+            <td>{{ageAtPurchase()}} months</td>
         </tr>
     </table>
 
@@ -74,14 +74,18 @@
         </tr>
 
         <tr ng-repeat="month in months()">
-            <td>{{month.time | date:'yyyy'}}</td>
             <td>{{month.time | date:'MMMM'}}</td>
+            <td>{{month.time | date:'yyyy'}}</td>
             <td>{{month.ageMonth}} months</td>
             <td>{{month.ownedMonth}} months</td>
-            <td>{{arf() | currency}}</td>
+            <td>{{data.price | currency}}</td>
             <td>{{month.roadTax | currency}}</td>
-            <td>{{month.totalPaid | currency}}</td>
+            <td>{{data.price + month.roadTax | currency}}</td>
             <td>{{month.coeRebate | currency}}</td>
+            <td>{{month.arfRebate | currency}}</td>
+            <td>{{month.coeRebate + month.arfRebate | currency}}</td>
+            <td>{{data.price + month.roadTax - month.coeRebate - month.arfRebate | currency}}</td>
+            <td>{{(data.price + month.roadTax - month.coeRebate - month.arfRebate) / month.ownedMonth | currency}}</td>
         </tr>
     </table>
 
