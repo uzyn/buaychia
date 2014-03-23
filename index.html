@@ -40,8 +40,8 @@
             <td>{{roadTax() | currency}} / year</td>
         </tr>
         <tr>
-            <th>Age at buying</td>
-            <td>{{roadTax() | currency}} / year</td>
+            <th>Age at purchase</td>
+            <td>seconds</td>
         </tr>
     </table>
 
@@ -49,8 +49,9 @@
     <p>Depending when you are deregistering off your chia</p>
 
     <table>
-        <tr>
-            <th>asdf</th>
+        <tr ng-repeat="month in months()">
+            <td>{{month.time | date:'yyyy'}}</td>
+            <td>{{month.time | date:'MMMM'}}</td>
         </tr>
     </table>
 

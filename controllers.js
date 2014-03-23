@@ -1,4 +1,9 @@
 var buaychiaApp = angular.module('buaychiaApp', []);
+var cache = {
+    'months': null,
+    'buyDate': null,
+    'regDate': null
+};
 
 buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
     $scope.stats = [
@@ -50,17 +55,13 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
     $scope.data = {
         'price': Math.ceil(Math.random() * 50000) + 20000,
         'engine': Math.ceil(Math.random() * 2000) + 1300,
-        'regDate': $filter('date')(Date.now() - Math.ceil(Math.random() * 70000000 * 1000), 'yyyy-MM'),
+        'regDate': $filter('date')(Date.now() - Math.ceil(Math.random() * 150000000 * 1000), 'yyyy-MM'),
         'coe': Math.ceil(Math.random() * 50000) + 20000,
         'omv': Math.ceil(Math.random() * 50000) + 5000,
         'buyDate': $filter('date')(Date.now(), 'yyyy-MM')
     };
 
-    // Deafult values
-    //$scope.data.buyDate = $filter('date')(Date.now(), 'yyyy-MM');
-
-
-    // Based on
+    // Calculations
     // http://www.lta.gov.sg/content/ltaweb/en/roads-and-motoring/owning-a-vehicle/costs-of-owning-a-vehicle/tax-structure-for-cars.html
 
     $scope.arf = function() {
@@ -91,4 +92,34 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
         }
     }
 
+    $scope.months = function() {
+        if (cache.buyDate === $scope.data.buyDate && cache.regDate === $scope.data.regDate) {
+            console.log('cached');
+            return cache.months;
+        }
+
+        var buyDate = new Date($scope.data.buyDate);
+        var regDate = new Date($scope.data.regDate);
+
+        var monthsBeforeTenYrs = ((regDate.getYear()) + 10 - (buyDate.getYear())) * 12 + (regDate.getMonth()) - (buyDate.getMonth());
+
+        var currDate = buyDate;
+        var months = [];
+        for (i = 0; i < monthsBeforeTenYrs; ++i) {
+            currDate.setMonth(currDate.getMonth() + 1);
+
+            months.push({
+                time: currDate.getTime()
+            });
+
+        }
+
+        months.reverse();
+
+        cache.months = months;
+        cache.buyDate = $scope.data.buyDate;
+        cache.regDate = $scope.data.regDate;
+
+        return months;
+    }
 });

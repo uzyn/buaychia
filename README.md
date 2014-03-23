@@ -14,3 +14,4 @@ Excluding:
 - Parse sgcarmart directly via a bookmarklet
 - Fields to enter any other costs
 - Standalone config for rates, eg. ARF rates, etc.
+- Error handling
