@@ -3,6 +3,7 @@ Buay Chia
 Annual cost for owning your ride, in Singapore.
 
 Excluding:
+- Road tax
 - Insurance
 - Fuel costs
 - Parking fees
