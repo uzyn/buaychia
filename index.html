@@ -1,21 +1,27 @@
-<!DOCTYPE  html>
-<html lang="en">
+<!doctype  html>
+<html lang="en" ng-app="buaychiaApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Singapore Car Ownership Annual Cost Calculator :: Buay Chia</title>
-
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="controllers.js"></script>
 </head>
 
-<body>
-
+<body ng-controller="ChiaCtrl">
     <h1>Buay Chia</h1>
 
     <p>Do not use if your chia is not a PARF chia.</p>
 
     <h2>Enter stats</h2>
     <table>
+        <tr ng-repeat="stat in stats">
+            <th>{{stat.label}}</th>
+            <td>{{stat.pre}} <input type="{{stat.input-type}}"> {{stat.post}}</td>
+        </tr>
+
+        <!--
         <tr>
             <th>Price</th>
             <td>SGD <input type="number"><td>
@@ -37,8 +43,10 @@
             <th>OMV</th>
             <td>SGD <input type="number"><td>
         </tr>
+        -->
     </table>
 
     <h2>Moment of truth</h2>
+
 </body>
 </html>
