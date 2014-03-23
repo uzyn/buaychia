@@ -207,6 +207,6 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
 
     $scope.ageAtPurchase = function () {
         $scope.months();
-        return 12 * 10 - cache.monthsBeforeTenYrs;
+        return 12 * 10 - cache.months.monthsBeforeTenYrs;
     }
 });
