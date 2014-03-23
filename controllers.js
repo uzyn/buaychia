@@ -5,7 +5,7 @@ buaychiaApp.controller('ChiaCtrl', function ($scope) {
         {
             'model': 'price',
             'label': 'Price',
-            'pre': 'SGD',
+            'pre': '$',
             'type': 'number',
             'post': null
         },
@@ -26,20 +26,23 @@ buaychiaApp.controller('ChiaCtrl', function ($scope) {
         {
             'model': 'coe',
             'label': 'COE',
-            'pre': 'SGD',
+            'pre': '$',
             'type': 'number',
             'post': null
         },
         {
             'model': 'omv',
             'label': 'OMV',
-            'pre': 'SGD',
+            'pre': '$',
             'type': 'number',
             'post': null
         }
     ];
 
     $scope.data = [];
+
+    // Based on
+    // http://www.lta.gov.sg/content/ltaweb/en/roads-and-motoring/owning-a-vehicle/costs-of-owning-a-vehicle/tax-structure-for-cars.html
 
     $scope.arf = function() {
         var omv = parseFloat($scope.data.omv);
@@ -51,7 +54,22 @@ buaychiaApp.controller('ChiaCtrl', function ($scope) {
         } else {
             return (omv - 50000) * 1.8 + 62000;
         }
-
     };
+
+    $scope.roadTax = function() {
+        var engine = parseFloat($scope.data.engine);
+
+        if (engine <= 600) {
+            return Math.ceil(200 * 0.782) * 2;
+        } else if (engine <= 1000) {
+            return Math.ceil((200 + 0.125 * (engine - 600)) * 0.782) * 2;
+        } else if (engine <= 1600) {
+            return Math.ceil((250 + 0.375 * (engine - 1000)) * 0.782) * 2;
+        } else if (engine <= 3000) {
+            return Math.ceil((475 + 0.75 * (engine - 1600)) * 0.782) * 2;
+        } else {
+            return Math.ceil((1525 + 1 * (engine - 3000)) * 0.782) * 2;
+        }
+    }
 
 });
