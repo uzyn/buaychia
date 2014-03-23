@@ -94,12 +94,16 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
 
     $scope.months = function() {
         if (cache.buyDate === $scope.data.buyDate && cache.regDate === $scope.data.regDate) {
-            console.log('cached');
             return cache.months;
         }
 
         var buyDate = new Date($scope.data.buyDate);
         var regDate = new Date($scope.data.regDate);
+
+        if (buyDate.getTime() < regDate.getTime()) {
+            $scope.data.regDate = $scope.data.buyDate;
+            alert('Cheng hu says you cannot buy a chia before registering it.');
+        }
 
         var monthsBeforeTenYrs = ((regDate.getYear()) + 10 - (buyDate.getYear())) * 12 + (regDate.getMonth()) - (buyDate.getMonth());
 
