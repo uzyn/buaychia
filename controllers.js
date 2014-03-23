@@ -1,4 +1,8 @@
-var buaychiaApp = angular.module('buaychiaApp', []);
+var buaychiaApp = angular.module('buaychiaApp', []).filter('monthInYM', function(){
+    return function (input) {
+        return Math.floor(input/12) + 'y ' + input%12 + 'm';
+    }
+});
 var cache = [];
 
 buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {

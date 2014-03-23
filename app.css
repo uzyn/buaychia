@@ -1,3 +1,7 @@
 .table-monthly th {
     text-align: center;
 }
+
+.table-monthly td {
+    white-space: nowrap;
+}
