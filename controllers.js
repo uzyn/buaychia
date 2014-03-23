@@ -133,7 +133,7 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
         var arf = $scope.arf();
         var coePerMonth = $scope.data.coe / 12 / 10;
 
-        for (i = 1; i < monthsBeforeTenYrs + 1; ++i) {
+        for (i = 1; i < monthsBeforeTenYrs + 2; ++i) {
             var time = currDate.setMonth(currDate.getMonth() + 1);
             var ageMonth = 12 * 10 - monthsBeforeTenYrs + (i);
             var ownedMonth = i;
@@ -156,6 +156,10 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
                 arfRebate = 0.5 * arf;
             } else {
                 arfRebate = 0;
+            }
+
+            if (coeRebate < 0) {
+                coeRebate = 0;
             }
 
             months.push({
