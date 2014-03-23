@@ -62,7 +62,7 @@
         </tr>
         <tr>
             <th>Age at purchase</td>
-            <td>{{ageAtPurchase()}} months</td>
+            <td>{{ageAtPurchase() | monthInYM}}</td>
         </tr>
     </table>
 
@@ -77,22 +77,11 @@
             <th rowspan="2">Owned</th>
             <th colspan="3">Total</th>
             <th colspan="2">Cost</th>
-
         </tr>
 
         <tr>
-
-        <!--
-            <th>Car</th>
-            <th>Road tax</th>
-        -->
             <th>Paid</th>
-        <!--
-            <th>COE</th>
-            <th>ARF</th>
-        -->
             <th>Rebate</th>
-
             <th>Nett</th>
             <th>Annual</th>
             <th>Monthly</th>
@@ -103,10 +92,6 @@
             <td>{{month.time | date:'yyyy'}}</td>
             <td class="text-right">{{month.ageMonth | monthInYM}}</td>
             <td class="text-right">{{month.ownedMonth | monthInYM}}</td>
-        <!--
-            <td class="text-right">{{data.price | currency}}</td>
-            <td class="text-right">{{month.roadTax | currency}}</td>
-        -->
             <td class="text-right">
                 {{data.price + month.roadTax | currency}}<br>
                 <span class="text-muted small">
@@ -114,10 +99,6 @@
                     Road tax: {{month.roadTax | currency}}
                 </span>
             </td>
-        <!--
-            <td class="text-right">{{month.coeRebate | currency}}</td>
-            <td class="text-right">{{month.arfRebate | currency}}</td>
-        -->
             <td class="text-right">
                 {{month.coeRebate + month.arfRebate | currency}}<br>
                 <span class="text-muted small">
