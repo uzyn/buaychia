@@ -112,7 +112,12 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
     }
 
     $scope.months = function() {
-        if (cache.buyDate === $scope.data.buyDate && cache.regDate === $scope.data.regDate) {
+        if (cache.buyDate === $scope.data.buyDate &&
+            cache.regDate === $scope.data.regDate &&
+            cache.engine === $scope.data.engine &&
+            cache.coe === $scope.data.coe &&
+            cache.omv === $scope.data.omv
+        ) {
             return cache.months;
         }
 
@@ -178,6 +183,9 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
         cache.months = months;
         cache.buyDate = $scope.data.buyDate;
         cache.regDate = $scope.data.regDate;
+        cache.engine = $scope.data.engine;
+        cache.coe = $scope.data.coe;
+        cache.omv = $scope.data.omv;
         cache.monthsBeforeTenYrs = monthsBeforeTenYrs;
 
         return months;
