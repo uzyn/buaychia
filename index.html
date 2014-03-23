@@ -22,6 +22,10 @@
 
         <h1>Buay Chia</h1>
 
+        <p>Literally, <strong>buy</strong> <em class="text-muted">(buay)</em> a <strong>car</strong> <em class="text-muted">(chia)</em>.</p>
+
+        <p>A simple calculator for finding out the annualized (and <em>monthly-ized</em>) cost for buying or owning a chia, new or used, in Singapore, based on rebates fetched during deregistration.</p>
+
         <p>Only valid if the chia you want to buay:</p>
         <ul>
             <li>is a Singapore-registered chia,</li>
@@ -29,6 +33,8 @@
             <li>is a petrol chia,</li>
             <li>is a less-than-10-year-old chia.</li>
         </ul>
+
+
 
         <h2>Enter stats</h2>
         <p>Need actual numbers? Go to sgcarmart.com</p>
@@ -95,7 +101,7 @@
             <td class="text-right">
                 {{data.price + month.roadTax | currency}}<br>
                 <span class="text-muted small">
-                    Car: {{data.price | currency}}<br>
+                    Chia: {{data.price | currency}}<br>
                     Road tax: {{month.roadTax | currency}}
                 </span>
             </td>
