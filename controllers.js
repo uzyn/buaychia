@@ -126,11 +126,25 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
 
         var currDate = buyDate;
         var months = [];
+        var roadTaxPerMonth = $scope.roadTax() / 12;
+        var arf = $scope.arf();
+        var coePerMonth = $scope.data.coe / 12 / 10;
+
         for (i = 0; i < monthsBeforeTenYrs; ++i) {
-            currDate.setMonth(currDate.getMonth() + 1);
+            var time = currDate.setMonth(currDate.getMonth() + 1);
+            var ageMonth = 12 * 10 - monthsBeforeTenYrs + (i + 1);
+            var ownedMonth = i;
+            var roadTax = roadTaxPerMonth * (i+1);
+            var totalPaid = roadTax + arf;
+            var coeRebate = coePerMonth ;
 
             months.push({
-                time: currDate.getTime()
+                time: time,
+                ageMonth: ageMonth,
+                ownedMonth: ownedMonth,
+                roadTax: roadTax,
+                totalPaid: totalPaid,
+                coeRebate: coeRebate
             });
 
         }
@@ -140,7 +154,13 @@ buaychiaApp.controller('ChiaCtrl', function ($scope, $filter) {
         cache.months = months;
         cache.buyDate = $scope.data.buyDate;
         cache.regDate = $scope.data.regDate;
+        cache.monthsBeforeTenYrs = monthsBeforeTenYrs;
 
         return months;
+    }
+
+    $scope.monthsBeforeTenYrs = function () {
+        $scope.months();
+        return cache.monthsBeforeTenYrs;
     }
 });
